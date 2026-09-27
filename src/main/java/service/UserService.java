@@ -13,7 +13,7 @@ public class UserService {
     }
 
     public void addUser(String userId) {
-        User user = new User(userId);
+        User user = getUser(userId);
         users.add(user);
     }
 

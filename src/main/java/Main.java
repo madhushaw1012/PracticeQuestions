@@ -1,4 +1,5 @@
 import model.LevelType;
+import model.Purchase;
 import model.User;
 import service.LevelRules;
 import service.PurchaseService;
@@ -38,9 +39,9 @@ public class Main {
             double amount = Double.parseDouble(sc.nextLine().trim());
             double points = Double.parseDouble(sc.nextLine().trim());
 
-            purchaseService.purchase(purchaseUser, amount, points);
+            Purchase purchase= purchaseService.purchase(purchaseUser, amount, points);
             System.out.println("Purchase order has been successfully completed");
-            System.out.println(purchaseService.getLastPurchase(purchaseUser).getCoinsRedeemed());
+            System.out.println(purchase.getCoinsRedeemed());
             System.out.println(purchaseUser.getPoints());
             System.out.println(purchaseUser.getLevelType());
         }
