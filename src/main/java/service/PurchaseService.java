@@ -30,13 +30,18 @@ public class PurchaseService {
             return null;
         }
         double pointsUsed= Math.min(points, maxRedeemablePoints);
-        double discountApplied= 0;
-        double remainingAmount= amount-pointsUsed-discountApplied;
+        double remainingAmount= amount-pointsUsed;
+        double discountApplied= remainingAmount * applyDiscount(user);
+        remainingAmount-= discountApplied;
+        System.out.println("Discount applied: " + discountApplied);
+        System.out.println("Payable amt: " + remainingAmount);
+
         double pointsEarned= levelRule.get(levelType).calculatePointsEarned(remainingAmount);
         user.setPoints(user.getPoints() - points +pointsEarned);
         double currentPoints = user.getPoints();
         LevelType currentLevelType = determineLevel(currentPoints);
         user.setLevelType(currentLevelType);
+        user.setCurrentOrderCount(user.getCurrentOrderCount()+1);
 
         Purchase order = new Purchase(user, amount, discountApplied,remainingAmount,pointsUsed,pointsEarned);
         List<Purchase> orders= getPurchases(user);
@@ -52,9 +57,13 @@ public class PurchaseService {
         return  purchases.get(user);
     }
 
-    public Purchase getLastPurchase(User user) {
+    public double totalPurchaseAmount(User user) {
         List<Purchase> orders= getPurchases(user);
-        return orders.get(orders.size()-1);
+        double totalAmount= 0;
+        for(Purchase order: orders){
+            totalAmount += order.getAmount();
+        }
+        return totalAmount;
     }
 
     public LevelType determineLevel(double points) {
@@ -66,5 +75,21 @@ public class PurchaseService {
             }
         }
         return null;
+    }
+    double calculateDiscount(User user) {
+        double discount=0;
+        int totalOrders= user.getCurrentOrderCount();
+        double totalAmount= totalPurchaseAmount(user);
+        if(totalAmount >= 10000 && totalOrders >=3) discount=0.12;
+        else if(totalOrders > 3) discount=0.05;
+        else if(totalAmount >= 10000) discount=0.1;
+        return discount;
+    }
+    double applyDiscount(User user) {
+        double discount= calculateDiscount(user);
+        if(discount == 0.12) {
+            user.setCurrentOrderCount(0);
+        }
+        return discount;
     }
 }

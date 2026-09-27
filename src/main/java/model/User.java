@@ -5,10 +5,21 @@ public class User {
     private LevelType levelType;
     private double points;
 
+    public int getCurrentOrderCount() {
+        return currentOrderCount;
+    }
+
+    public void setCurrentOrderCount(int currentOrderCount) {
+        this.currentOrderCount = currentOrderCount;
+    }
+
+    private int currentOrderCount;
+
     public User(String userId) {
         this.userId= userId;
         levelType= LevelType.Bronze;
         points= 0.0;
+        currentOrderCount= 0;
     }
 
     public String getUserId() {

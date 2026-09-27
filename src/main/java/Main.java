@@ -41,9 +41,9 @@ public class Main {
 
             Purchase purchase= purchaseService.purchase(purchaseUser, amount, points);
             System.out.println("Purchase order has been successfully completed");
-            System.out.println(purchase.getCoinsRedeemed());
-            System.out.println(purchaseUser.getPoints());
-            System.out.println(purchaseUser.getLevelType());
+            if(purchase != null) System.out.println("Coind used: " +purchase.getCoinsRedeemed());
+            System.out.println("Current points: "+purchaseUser.getPoints());
+            System.out.println("Current level: "+purchaseUser.getLevelType());
         }
 
     }

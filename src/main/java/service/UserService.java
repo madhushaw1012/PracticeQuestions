@@ -26,4 +26,7 @@ public class UserService {
         System.out.println("User not found, onboarding new");
         return new User(userId);
     }
+    public void setCurrentOrderCount(int currentOrderCount) {
+        this.setCurrentOrderCount(currentOrderCount);
+    }
 }
