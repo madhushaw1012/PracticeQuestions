@@ -37,7 +37,7 @@ public class Main {
 
             String itemName2 = "paste";
             int count2 = 12;
-            double price2 = 15.00;
+            double price2 = 150.00;
             Item item2 = itemService.addItem(itemName2, count2, price2);
 
             //view inventory
@@ -45,7 +45,7 @@ public class Main {
 
             //register user
             String userName = "madhu";
-            double bnpl_limit = 500.00;
+            double bnpl_limit = 330.00;
             User user= userService.addUser(userName, bnpl_limit);
             System.out.println("View All Users");
             userService.viewUser(user);
@@ -61,6 +61,11 @@ public class Main {
 
             orderService.buy("order234",userId,orderItem,paymentType,LocalDateTime.now().plusDays(10));
             itemService.viewItems();
+
+            orderService.buy("orderPrepaid",userId,"paste",PaymentMethod.PREPAID,LocalDateTime.now());
+            itemService.viewItems();
+//            orderService.buy("order456",userId,"paste",paymentType,LocalDateTime.now().plusDays(10));
+
 
             //view dues
             duesService.viewDues(userId, LocalDateTime.now().plusDays(45));

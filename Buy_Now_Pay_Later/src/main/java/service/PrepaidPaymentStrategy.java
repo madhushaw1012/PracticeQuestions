@@ -13,6 +13,7 @@ public class PrepaidPaymentStrategy implements PaymentStrategyType {
 
         Transaction t = new Transaction();
         t.setDuesState(DuesState.CLEARED);
+        t.setDueDate(date);
         t.setTransactionDate(date);
         t.setPaymentAmount(amount);
         return t;
