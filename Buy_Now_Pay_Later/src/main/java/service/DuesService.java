@@ -24,19 +24,20 @@ public class DuesService {
 
             if(transaction.getDuesState().equals(DuesState.PENDING)){
                 if (!transaction.getDueDate().isBefore(date)) {
-                    transaction.setDuesState(DuesState.CLEARED);
-                } else {
                     transaction.setDuesState(DuesState.DELAYED);
+                } else {
+                    transaction.setDuesState(DuesState.CLEARED);
                 }
             }
         }
     }
 
     public void viewDues(String user, LocalDateTime date) throws Exception {
+        System.out.println("View Dues");
         List<Order> orders= orderService.getOrders(user);
         for(Order o : orders){
-            if(o.getTransaction().getDueDate().isBefore(date) && o.getTransaction().getDuesState().equals(DuesState.PENDING)){
-                System.out.println(o.orderId);
+            if(o.getTransaction().getDueDate().isAfter(date) && o.getTransaction().getDuesState() == DuesState.PENDING){
+                System.out.println(o.orderId+" | Due Amount: "+o.getTransaction().getPaymentAmount());
             }
         }
     }

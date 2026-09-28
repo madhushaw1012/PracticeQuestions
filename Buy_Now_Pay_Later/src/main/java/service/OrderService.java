@@ -21,7 +21,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public Order buy(String name, String item, PaymentMethod paymentMethod, LocalDateTime date) throws Exception{
+    public Order buy(String orderId, String name, String item, PaymentMethod paymentMethod, LocalDateTime date) throws Exception{
         try {
             User user = userService.getUser(name);
             Item i = itemService.getItem(item);
@@ -37,7 +37,7 @@ public class OrderService {
             Transaction t = trasactionService.createTransaction(i.getPrice(), user, paymentStrategyType, date);
             trasactionService.addTransaction(t);
             i.setCount(i.getCount() - 1);
-            Order order = new Order(user, i, date, paymentStrategyType, t);
+            Order order = new Order(orderId, user, i, date, paymentStrategyType, t);
             addOrder(order);
             return order;
         } catch (Exception ex) {

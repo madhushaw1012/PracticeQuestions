@@ -1,4 +1,5 @@
 import model.Item;
+import model.Order;
 import model.PaymentMethod;
 import model.User;
 import repository.ItemRepository;
@@ -55,17 +56,28 @@ public class Main {
             String type= "BNPL";
             PaymentMethod paymentType= type.equals("BNPL")?PaymentMethod.BNPL:PaymentMethod.PREPAID;
 
-            orderService.buy(userId,orderItem,paymentType, LocalDateTime.now());
+            orderService.buy("order123", userId,orderItem,paymentType, LocalDateTime.now());
             itemService.viewItems();
 
-            orderService.buy(userId,orderItem,paymentType,LocalDateTime.now());
+            orderService.buy("order234",userId,orderItem,paymentType,LocalDateTime.now().plusDays(10));
             itemService.viewItems();
 
-            duesService.viewDues(userId, LocalDateTime.now().plusDays(1));
-
+            //view dues
+            duesService.viewDues(userId, LocalDateTime.now().minusDays(5));
+            System.out.println("Limit: "+user.getBnpl_limit());
             //clear dues
+            List<String> orderIds= List.of("order123","order234");
+            duesService.clearDues(user,orderIds,LocalDateTime.now().plusDays(6));
 
+            duesService.viewDues(userId, LocalDateTime.now().minusDays(5));
 
+            //List all orders of user
+            List<Order> orders= orderService.getOrders(userName);
+            System.out.println("Limit: "+user.getBnpl_limit());
+            for(Order o: orders) {
+                System.out.println(o.getOrderId());
+                System.out.println(o.getTransaction().getDuesState());
+            }
 
         }catch (Exception e){
             System.out.println(e.getMessage());

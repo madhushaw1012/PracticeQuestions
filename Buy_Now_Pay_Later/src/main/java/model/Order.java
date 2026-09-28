@@ -13,13 +13,13 @@ public class Order {
     public Transaction transaction;
     public Item item;
 
-    public Order(User userId, Item item, LocalDateTime orderDate, PaymentStrategyType paymentType, Transaction transaction  ) {
+    public Order(String orderId, User userId, Item item, LocalDateTime orderDate, PaymentStrategyType paymentType, Transaction transaction  ) {
         this.orderDate = orderDate;
         this.item = item;
         this.paymentType = paymentType;
         this.userId = userId;
         this.transaction = transaction;
-        this.orderId = UUID.randomUUID().toString();
+        this.orderId = orderId;
     }
 
     public LocalDateTime getOrderDate() {
