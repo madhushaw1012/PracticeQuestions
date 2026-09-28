@@ -29,6 +29,7 @@ public class ItemRepository {
     }
 
     public void viewItems() {
+        System.out.println("View items");
         for (Item item : items) {
             System.out.println(item.getName()+" : "+item.getPrice()+" : "+item.getCount());
         }

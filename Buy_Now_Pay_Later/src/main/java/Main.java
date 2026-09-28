@@ -56,6 +56,14 @@ public class Main {
             PaymentMethod paymentType= type.equals("BNPL")?PaymentMethod.BNPL:PaymentMethod.PREPAID;
 
             orderService.buy(userId,orderItem,paymentType, LocalDateTime.now());
+            itemService.viewItems();
+
+            orderService.buy(userId,orderItem,paymentType,LocalDateTime.now());
+            itemService.viewItems();
+
+            duesService.viewDues(userId, LocalDateTime.now().plusDays(1));
+
+            //clear dues
 
 
 

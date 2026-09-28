@@ -14,7 +14,6 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(double price, User user, PaymentStrategyType paymentStrategyType, LocalDateTime date) throws Exception {
-        System.out.println("createTransaction");
         return paymentStrategyType.createTransaction(price,user,date);
     }
 

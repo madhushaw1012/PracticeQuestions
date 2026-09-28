@@ -16,7 +16,7 @@ public class BNPLPaymentStrategy implements PaymentStrategyType {
         }
         if(amount > user.getBnpl_limit()){
             user.setIs_blocked(true);
-            throw new Exception("Your limit doesn't allow this expediture");
+            throw new Exception("Your limit doesn't allow this expenditure");
         }
         Transaction t = new Transaction();
         t.setPaymentAmount(amount);

@@ -17,14 +17,14 @@ public class OrderService {
     public OrderService(UserService userService, TransactionService trasactionService, ItemService itemService,  OrderRepository orderRepository) {
         this.userService = userService;
         this.trasactionService = trasactionService;
+        this.itemService = itemService;
+        this.orderRepository = orderRepository;
     }
 
     public Order buy(String name, String item, PaymentMethod paymentMethod, LocalDateTime date) throws Exception{
         try {
             User user = userService.getUser(name);
-            System.out.println(user.getId());
             Item i = itemService.getItem(item);
-            System.out.println("itemmss"+i.getName());
             if (i.getCount() == 0) throw new Exception("Not enough stock");
             switch (paymentMethod) {
                 case PREPAID:
