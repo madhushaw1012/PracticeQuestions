@@ -63,13 +63,15 @@ public class Main {
             itemService.viewItems();
 
             //view dues
-            duesService.viewDues(userId, LocalDateTime.now().minusDays(5));
+            duesService.viewDues(userId, LocalDateTime.now().plusDays(45));
             System.out.println("Limit: "+user.getBnpl_limit());
             //clear dues
             List<String> orderIds= List.of("order123","order234");
-            duesService.clearDues(user,orderIds,LocalDateTime.now().plusDays(6));
+            duesService.clearDues(user,orderIds,LocalDateTime.now().plusDays(35));
 
-            duesService.viewDues(userId, LocalDateTime.now().minusDays(5));
+            duesService.viewDues(userId, LocalDateTime.now().minusDays(45));
+
+
 
             //List all orders of user
             List<Order> orders= orderService.getOrders(userName);
@@ -78,7 +80,6 @@ public class Main {
                 System.out.println(o.getOrderId());
                 System.out.println(o.getTransaction().getDuesState());
             }
-
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
